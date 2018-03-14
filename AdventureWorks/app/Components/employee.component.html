@@ -1,0 +1,125 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Employee Management
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addEmployee()">Add</button></div>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+            <div *ngIf='employees && employees.length==0' class="alert alert-info" role="alert">No record found!</div>
+            <table class='table table-striped' *ngIf='employees && employees.length'>
+                <thead>
+                    <tr>
+                        <th>LoginID</th>
+                        <th>JobTitle</th>
+                        <th>NationalIDNumber</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employees">
+                        <td>{{employee.LoginID}}</td>
+                        <td>{{employee.JobTitle}}</td>
+                        <td>{{employee.NationalIDNumber}}</td>
+                        <td>
+                            <button title="Edit" class="btn btn-primary" (click)="editEmployee(employee.BusinessEntityID)">Edit</button>
+                            <button title="Delete" class="btn btn-danger" (click)="deleteEmployee(employee.BusinessEntityID)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+        <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{msg}}
+        </div>
+    </div>
+</div>
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(employeeFrm)" [formGroup]="employeeFrm">
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+        </modal-header>
+        <modal-body>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>National ID Number*</span>
+                        <input type="text" required class="form-control" placeholder="National ID Number" formControlName="NationalIDNumber">
+                    </div>
+                    <div class="col-md-6">
+                        <span>Login ID*</span>
+                        <input type="text" required class="form-control" placeholder="Login ID" formControlName="LoginID">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>Organization Level</span>
+                        <input type="text" class="form-control" placeholder="Organization Level" formControlName="OrganizationLevel">
+                    </div>
+                    <div class="col-md-6">
+                        <span>Job Title*</span>
+                        <input type="text" required class="form-control" placeholder="Job Title" formControlName="JobTitle">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>Gender*</span>
+                        <select formControlName="Gender" required class="form-control">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <span>Marital Status*</span>
+                        <select formControlName="MaritalStatus" required class="form-control">
+                            <option value="S">Single</option>
+                            <option value="M">Married</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>Birth Date*</span>
+                        <input type="date" required class="form-control" placeholder="Birth Date" formControlName="BirthDate" max="{{maxBirthDate}}">
+                    </div>
+                    <div class="col-md-6">
+                        <span>Hire Date*</span>
+                        <input type="date" required class="form-control" placeholder="Hire Date" formControlName="HireDate">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>Vacation Hours*</span>
+                        <input type="number" required class="form-control" placeholder="Vacation Hours" formControlName="VacationHours">
+                    </div>
+                    <div class="col-md-6">
+                        <span>Sick Leave Hours*</span>
+                        <input type="number" required class="form-control" placeholder="Sick Leave Hours" formControlName="SickLeaveHours">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            <label><input type="checkbox" formControlName="SalariedFlag">Salaried</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" formControlName="CurrentFlag">
+            <input type="hidden" formControlName="rowguid">
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit" [disabled]="employeeFrm.invalid" class="btn btn-primary">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

@@ -20,6 +20,7 @@ namespace AdventureWorks.Controllers
         {
             value.BusinessEntityID = AdventureWorkDB.Employee.OrderByDescending(o => o.BusinessEntityID).FirstOrDefault().BusinessEntityID + 1;
             value.rowguid = Guid.NewGuid();
+            value.CurrentFlag = true;
             AdventureWorkDB.Employee.Add(value);
             return ToJson(AdventureWorkDB.SaveChanges());
         }

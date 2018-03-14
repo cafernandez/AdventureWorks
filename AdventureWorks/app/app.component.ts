@@ -3,11 +3,12 @@
     selector: "employee-app",
     template: `
                <div>
-                  <nav class='navbar navbar-inverse'>
+                  <nav class='navbar'>
                        <div class='container-fluid'>
                          <ul class='nav navbar-nav'>
-                           <li><a [routerLink]="['employee']">Employees Management</a></li>
-                      </ul>
+                            <li><img src="../images/ExigyLogo.png"/></li>
+                            <li nav-item active><a [routerLink]="['employee']">Employees Management</a></li>
+                        </ul>
                       </div>
                  </nav>    
               <div class='container'>

@@ -1,10 +1,10 @@
 ﻿<div class='panel panel-primary'>
     <div class='panel-heading'>
-        Employee Management
+        Employees Management
     </div>
     <div class='panel-body'>
         <div class='table-responsive'>
-            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addEmployee()">Add</button></div>
+            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addEmployee()">New</button></div>
             <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
             <div *ngIf='employees && employees.length==0' class="alert alert-info" role="alert">No record found!</div>
             <table class='table table-striped' *ngIf='employees && employees.length'>
@@ -47,68 +47,66 @@
         </modal-header>
         <modal-body>
 
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>National ID Number*</span>
-                        <input type="text" required class="form-control" placeholder="National ID Number" formControlName="NationalIDNumber">
-                    </div>
-                    <div class="col-md-6">
-                        <span>Login ID*</span>
-                        <input type="text" required class="form-control" placeholder="Login ID" formControlName="LoginID">
-                    </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="NationalIDNumber">National ID Number *</label>
+                    <input type="text" id="NationalIDNumber" required class="form-control" placeholder="National ID Number" formControlName="NationalIDNumber">
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>Organization Level</span>
-                        <input type="text" class="form-control" placeholder="Organization Level" formControlName="OrganizationLevel">
-                    </div>
-                    <div class="col-md-6">
-                        <span>Job Title*</span>
-                        <input type="text" required class="form-control" placeholder="Job Title" formControlName="JobTitle">
-                    </div>
+                <div class="col-md-6">
+                    <label for="LoginID">Login ID *</label>
+                    <input type="text" id="LoginID" required class="form-control" placeholder="Login ID" formControlName="LoginID">
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>Gender*</span>
-                        <select formControlName="Gender" required class="form-control">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <span>Marital Status*</span>
-                        <select formControlName="MaritalStatus" required class="form-control">
-                            <option value="S">Single</option>
-                            <option value="M">Married</option>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="OrganizationLevel">Organization Level</label>
+                    <input type="text" id="OrganizationLevel" class="form-control" placeholder="Organization Level" formControlName="OrganizationLevel">
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>Birth Date*</span>
-                        <input type="date" required class="form-control" placeholder="Birth Date" formControlName="BirthDate" max="{{maxBirthDate}}">
-                    </div>
-                    <div class="col-md-6">
-                        <span>Hire Date*</span>
-                        <input type="date" required class="form-control" placeholder="Hire Date" formControlName="HireDate">
-                    </div>
+                <div class="col-md-6">
+                    <label for="JobTitle">Job Title *</label>
+                    <input type="text" id="JobTitle" required class="form-control" placeholder="Job Title" formControlName="JobTitle">
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>Vacation Hours*</span>
-                        <input type="number" required class="form-control" placeholder="Vacation Hours" formControlName="VacationHours">
-                    </div>
-                    <div class="col-md-6">
-                        <span>Sick Leave Hours*</span>
-                        <input type="number" required class="form-control" placeholder="Sick Leave Hours" formControlName="SickLeaveHours">
-                    </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="Gender">Gender *</label>
+                    <select formControlName="Gender" id="Gender" required class="form-control">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="checkbox">
-                            <label><input type="checkbox" formControlName="SalariedFlag">Salaried</label>
-                        </div>
+                <div class="col-md-6">
+                    <label for="MaritalStatus">Marital Status *</label>
+                    <select formControlName="MaritalStatus" id="MaritalStatus" required class="form-control">
+                        <option value="S">Single</option>
+                        <option value="M">Married</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="BirthDate">Birth Date *</label>
+                    <input type="date" id="BirthDate" required class="form-control" placeholder="Birth Date" formControlName="BirthDate" max="{{maxBirthDate}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="HireDate">Hire Date *</label>
+                    <input type="date" id="HireDate" required class="form-control" placeholder="Hire Date" formControlName="HireDate">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="VacationHours">Vacation Hours *</label>
+                    <input type="number" id="VacationHours" required class="form-control" placeholder="Vacation Hours" formControlName="VacationHours">
+                </div>
+                <div class="col-md-6">
+                    <label for="SickLeaveHours">Sick Leave Hours *</label>
+                    <input type="number" id="SickLeaveHours" required class="form-control" placeholder="Sick Leave Hours" formControlName="SickLeaveHours">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <div class="checkbox">
+                        <label for="SalariedFlag"><input type="checkbox" id="SalariedFlag" formControlName="SalariedFlag">Salaried</label>
                     </div>
                 </div>
             </div>

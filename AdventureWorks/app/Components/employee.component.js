@@ -25,7 +25,7 @@ var EmployeeComponent = /** @class */ (function () {
         this.employeeFrm = this.fb.group({
             BusinessEntityID: [''],
             NationalIDNumber: ['', forms_1.Validators.required],
-            LoginID: ['', forms_1.Validators.required],
+            LoginID: ['', this.loginIDUnique.bind(this)],
             OrganizationLevel: [''],
             JobTitle: ['', forms_1.Validators.required],
             BirthDate: ['', forms_1.Validators.required],
@@ -43,6 +43,18 @@ var EmployeeComponent = /** @class */ (function () {
         today.setFullYear(today.getFullYear() - 18);
         this.maxBirthDate = today.toISOString().substring(0, 10);
         this.LoadEmployees();
+    };
+    EmployeeComponent.prototype.loginIDUnique = function (c) {
+        try {
+            return !this.employees.find(function (x) { return x.LoginID == c.value; }) && (c.value != '') ? null : {
+                validateLoginID: {
+                    valid: false
+                }
+            };
+        }
+        catch (ex) {
+            console.log(ex);
+        }
     };
     EmployeeComponent.prototype.LoadEmployees = function () {
         var _this = this;

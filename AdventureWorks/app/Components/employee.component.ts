@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { EmployeeService } from '../Service/employee.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { IEmployee } from '../Models/employee';
 import { DBOperation } from '../Shared/enum';
@@ -30,7 +30,7 @@ export class EmployeeComponent implements OnInit {
         this.employeeFrm = this.fb.group({
             BusinessEntityID: [''],
             NationalIDNumber: ['', Validators.required],
-            LoginID: ['', Validators.required],
+            LoginID: ['', this.loginIDUnique.bind(this)],
             OrganizationLevel: [''],
             JobTitle: ['', Validators.required],
             BirthDate: ['', Validators.required],
@@ -49,7 +49,19 @@ export class EmployeeComponent implements OnInit {
         this.maxBirthDate = today.toISOString().substring(0, 10);
         this.LoadEmployees();
     }
-    
+
+    loginIDUnique(c: FormControl) {
+        try {
+            return !this.employees.find(x => x.LoginID == c.value) && (c.value != '') ? null : {
+                validateLoginID: {
+                    valid: false
+                }
+            };
+        } catch (ex) {
+            console.log(ex);
+        }
+    }
+
     LoadEmployees(): void {
         this.indLoading = true;
         this._employeeService.get(Global.BASE_EMPLOYEE_ENDPOINT)

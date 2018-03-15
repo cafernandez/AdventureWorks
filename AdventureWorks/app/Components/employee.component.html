@@ -7,17 +7,23 @@
             <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addEmployee()">New</button></div>
             <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
             <div *ngIf='employees && employees.length==0' class="alert alert-info" role="alert">No record found!</div>
-            <table class='table table-striped' *ngIf='employees && employees.length'>
+            <table class='table table-striped' [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10" *ngIf='employees && employees.length'>
                 <thead>
                     <tr>
-                        <th>LoginID</th>
-                        <th>JobTitle</th>
-                        <th>NationalIDNumber</th>
+                        <th>
+                            <mfDefaultSorter by="LoginID">Login ID</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="JobTitle">Job Title</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="NationalIDNumber">National ID Number</mfDefaultSorter>
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let employee of employees">
+                    <tr *ngFor="let employee of mf.data">
                         <td>{{employee.LoginID}}</td>
                         <td>{{employee.JobTitle}}</td>
                         <td>{{employee.NationalIDNumber}}</td>
@@ -27,6 +33,13 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
             <div>
             </div>

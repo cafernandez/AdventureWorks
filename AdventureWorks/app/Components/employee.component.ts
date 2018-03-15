@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { EmployeeService } from '../Service/employee.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { DataTableModule } from "angular2-datatable";
 import { IEmployee } from '../Models/employee';
 import { DBOperation } from '../Shared/enum';
 import { Observable } from 'rxjs/Rx';
@@ -15,6 +16,7 @@ import { Global } from '../Shared/global';
 export class EmployeeComponent implements OnInit {
     @ViewChild('modal') modal: ModalComponent;
     employees: IEmployee[];
+    data: IEmployee[];
     employee: IEmployee;
     msg: string;
     maxBirthDate: string;
@@ -52,7 +54,7 @@ export class EmployeeComponent implements OnInit {
 
     loginIDUnique(c: FormControl) {
         try {
-            return !this.employees.find(x => x.LoginID == c.value) && (c.value != '') ? null : {
+            return this.employees && !this.employees.find(x => x.LoginID == c.value && x.BusinessEntityID != c.parent.controls['BusinessEntityID'].value) && (c.value != '') ? null : {
                 validateLoginID: {
                     valid: false
                 }
@@ -65,7 +67,7 @@ export class EmployeeComponent implements OnInit {
     LoadEmployees(): void {
         this.indLoading = true;
         this._employeeService.get(Global.BASE_EMPLOYEE_ENDPOINT)
-            .subscribe(employees => { this.employees = employees; this.indLoading = false; },
+            .subscribe(employees => { this.employees = employees; this.data = employees; this.indLoading = false; },
             error => this.msg = <any>error);
     }
 

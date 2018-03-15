@@ -46,7 +46,7 @@ var EmployeeComponent = /** @class */ (function () {
     };
     EmployeeComponent.prototype.loginIDUnique = function (c) {
         try {
-            return !this.employees.find(function (x) { return x.LoginID == c.value; }) && (c.value != '') ? null : {
+            return this.employees && !this.employees.find(function (x) { return x.LoginID == c.value && x.BusinessEntityID != c.parent.controls['BusinessEntityID'].value; }) && (c.value != '') ? null : {
                 validateLoginID: {
                     valid: false
                 }
@@ -60,7 +60,7 @@ var EmployeeComponent = /** @class */ (function () {
         var _this = this;
         this.indLoading = true;
         this._employeeService.get(global_1.Global.BASE_EMPLOYEE_ENDPOINT)
-            .subscribe(function (employees) { _this.employees = employees; _this.indLoading = false; }, function (error) { return _this.msg = error; });
+            .subscribe(function (employees) { _this.employees = employees; _this.data = employees; _this.indLoading = false; }, function (error) { return _this.msg = error; });
     };
     EmployeeComponent.prototype.addEmployee = function () {
         this.dbops = enum_1.DBOperation.create;

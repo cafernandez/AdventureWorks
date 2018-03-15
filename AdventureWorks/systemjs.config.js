@@ -29,7 +29,9 @@
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-            'ng2-bs3-modal': 'npm:/ng2-bs3-modal'
+            'ng2-bs3-modal': 'npm:/ng2-bs3-modal',
+            'lodash': 'npm:lodash/lodash.js',
+            'angular2-datatable': 'npm:angular2-datatable'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -41,8 +43,17 @@
                 defaultExtension: 'js'
             },
             'ng2-bs3-modal': {
-                main: '/bundles/ng2-bs3-modal.js', defaultExtension: 'js'
+                main: '/bundles/ng2-bs3-modal.js',
+                defaultExtension: 'js'
+            },
+            'angular2-datatable': {
+                main: 'index.js',
+                defaultExtension: 'js'
+            },
+            'lodash': {
+                defaultExtension: 'js'
             }
+
         }
     });
 })(this);
